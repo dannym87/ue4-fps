@@ -1,10 +1,10 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
+#include "EnemyCharacter.h"
 #include "Kismet/GameplayStatics.h"
 #include "PlayerProjectile.h"
 #include "PlayerCharacter.h"
 #include "AI/EnemyAiController.h"
-#include "EnemyCharacter.h"
 
 // Sets default values
 AEnemyCharacter::AEnemyCharacter() {
@@ -69,7 +69,7 @@ void AEnemyCharacter::Die() {
     IsDead = true;
 }
 
-void MoveToPlayerCharacterLocation() {
+void AEnemyCharacter::MoveToPlayerCharacterLocation() {
     AEnemyAiController* AIController = Cast<AEnemyAiController>(GetController());
     if (!AIController) {
         return;

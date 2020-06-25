@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "PlayerCharacter.h"
 #include "EnemyAiController.h"
+#include "PlayerCharacter.h"
 
 void AEnemyAiController::BeginPlay() {
     Super::BeginPlay();
