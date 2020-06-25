@@ -1,6 +1,9 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
+#include "Kismet/GameplayStatics.h"
 #include "PlayerProjectile.h"
+#include "PlayerCharacter.h"
+#include "AI/EnemyAiController.h"
 #include "EnemyCharacter.h"
 
 // Sets default values
@@ -28,23 +31,6 @@ void AEnemyCharacter::SetupPlayerInputComponent(UInputComponent *PlayerInputComp
 
 }
 
-void AEnemyCharacter::OnHit(AActor *Actor, AActor *Other, FVector NormalImpulse, const FHitResult &Hit) {
-    auto *Projectile = Cast<APlayerProjectile>(Other);
-    if (!Projectile || IsDead) {
-        return;
-    }
-
-    Health -= .2f;
-
-    if (Health <= 0) {
-        Capsule->DestroyComponent();
-        SkeletalMesh->SetSimulatePhysics(true);
-        IsDead = true;
-    } else {
-
-    }
-}
-
 void AEnemyCharacter::EnsureComponents() {
     Capsule = FindComponentByClass<UCapsuleComponent>();
     if (!ensure(Capsule)) {
@@ -55,4 +41,44 @@ void AEnemyCharacter::EnsureComponents() {
     if (!ensure(SkeletalMesh)) {
         return;
     }
+
+    if (!ensure(DyingSound)) {
+        return;
+    }
+}
+
+void AEnemyCharacter::OnHit(AActor *Actor, AActor *Other, FVector NormalImpulse, const FHitResult &Hit) {
+    auto *Projectile = Cast<APlayerProjectile>(Other);
+    if (!Projectile || IsDead) {
+        return;
+    }
+
+    Health -= .2f;
+
+    if (Health <= 0) {
+        Die();
+    } else {
+        MoveToPlayerCharacterLocation();
+    }
+}
+
+void AEnemyCharacter::Die() {
+    Capsule->DestroyComponent();
+    SkeletalMesh->SetSimulatePhysics(true);
+    UGameplayStatics::PlaySoundAtLocation(GetWorld(), DyingSound, GetActorLocation(), GetActorRotation(), .2f);
+    IsDead = true;
+}
+
+void MoveToPlayerCharacterLocation() {
+    AEnemyAiController* AIController = Cast<AEnemyAiController>(GetController());
+    if (!AIController) {
+        return;
+    }
+
+    ACharacter* PlayerCharacter = UGameplayStatics::GetPlayerCharacter(GetWorld(), 0);
+    if (!PlayerCharacter) {
+        return;
+    }
+
+    AIController->MoveToLocation(PlayerCharacter->GetActorLocation());
 }

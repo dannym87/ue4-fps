@@ -6,6 +6,7 @@
 #include "Components/CapsuleComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "GameFramework/Character.h"
+#include "Sound/SoundWave.h"
 #include "EnemyCharacter.generated.h"
 
 UCLASS()
@@ -21,9 +22,12 @@ protected:
     float Health = 1.0f;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Default")
+    USoundWave* DyingSound;
+
+    UPROPERTY(BlueprintReadWrite, Category = "Default")
     bool IsShooting = false;
 
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Default")
+    UPROPERTY(BlueprintReadWrite, Category = "Default")
     bool IsDead = false;
 
     UPROPERTY(VisibleAnywhere, Category = "Collision")
@@ -47,6 +51,12 @@ public:
     virtual void SetupPlayerInputComponent(class UInputComponent *PlayerInputComponent) override;
 
 private:
+    // Ensure all Components exist
     void EnsureComponents();
 
+    // Kills an Enemy Player
+    void Die();
+
+    // Moves the Enemy Player to the Player Character location
+    void MoveToPlayerCharacterLocation();
 };
