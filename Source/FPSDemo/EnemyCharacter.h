@@ -7,6 +7,7 @@
 #include "Components/SkeletalMeshComponent.h"
 #include "GameFramework/Character.h"
 #include "Sound/SoundWave.h"
+#include "Weapons/Weapon.h"
 #include "EnemyCharacter.generated.h"
 
 UCLASS()
@@ -29,6 +30,9 @@ protected:
 
     UPROPERTY(BlueprintReadWrite, Category = "Default")
     bool IsDead = false;
+
+    UPROPERTY(BlueprintReadWrite, Category = "Default")
+    AWeapon* AIEquippedWeapon;
 
     UPROPERTY(VisibleAnywhere, Category = "Collision")
     UCapsuleComponent *Capsule;
