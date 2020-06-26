@@ -10,22 +10,22 @@
 #include "Weapon.generated.h"
 
 UCLASS()
-class FPSDEMO_API AWeapon : public AActor
-{
-	GENERATED_BODY()
-	
-public:	
-	// Sets default values for this actor's properties
-	AWeapon();
+
+class FPSDEMO_API AWeapon : public AActor {
+    GENERATED_BODY()
+
+public:
+    // Sets default values for this actor's properties
+    AWeapon();
 
 protected:
     // Particle system to spawn at muzzle when weapon is fired
     UPROPERTY(EditAnywhere)
-    UParticleSystem* MuzzleFlash;
+    UParticleSystem *MuzzleFlash;
 
     // Sound to play when projectile is fired
     UPROPERTY(EditAnywhere)
-    USoundWave* ShootingSound;
+    USoundWave *ShootingSound;
 
     UPROPERTY(EditDefaultsOnly)
     TSubclassOf<AEnemyProjectile> ProjectileBlueprint;
@@ -39,24 +39,25 @@ protected:
     bool IsParentDead = false;
 
     UPROPERTY()
-    USkeletalMeshComponent* WeaponMesh;
+    USkeletalMeshComponent *WeaponMesh;
 
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+    // Called when the game starts or when spawned
+    virtual void BeginPlay() override;
 
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+public:
+    // Called every frame
+    virtual void Tick(float DeltaTime) override;
 
-	// Fire weapon
-	UFUNCTION(BlueprintCallable)
-	void Fire();
+    // Fire weapon
+    UFUNCTION(BlueprintCallable)
 
-	// Sets the parent to flag as dead
-	void SetIsParentDead(bool IsDead);
+    void Fire();
+
+    // Sets the parent to flag as dead
+    void SetIsParentDead(bool IsDead);
 
 private:
-	// Ensure Components are set
-	void EnsureComponents();
+    // Ensure Components are set
+    void EnsureComponents();
 
 };

@@ -9,27 +9,27 @@
 #include "EnemyProjectile.generated.h"
 
 UCLASS()
-class FPSDEMO_API AEnemyProjectile : public AActor
-{
-	GENERATED_BODY()
-	
-public:	
-	// Sets default values for this actor's properties
-	AEnemyProjectile();
+
+class FPSDEMO_API AEnemyProjectile : public AActor {
+    GENERATED_BODY()
+
+public:
+    // Sets default values for this actor's properties
+    AEnemyProjectile();
 
 protected:
     UPROPERTY()
-    UProjectileMovementComponent* ProjectileMovementComponent;
+    UProjectileMovementComponent *ProjectileMovementComponent;
 
     UPROPERTY()
-    UCapsuleComponent* CapsuleComponent;
+    UCapsuleComponent *CapsuleComponent;
 
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+    // Called when the game starts or when spawned
+    virtual void BeginPlay() override;
 
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+public:
+    // Called every frame
+    virtual void Tick(float DeltaTime) override;
 
 private:
     // Ensure components exist on Actor

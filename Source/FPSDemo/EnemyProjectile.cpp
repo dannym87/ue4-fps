@@ -4,24 +4,21 @@
 #include "EnemyProjectile.h"
 
 // Sets default values
-AEnemyProjectile::AEnemyProjectile()
-{
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+AEnemyProjectile::AEnemyProjectile() {
+    // Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+    PrimaryActorTick.bCanEverTick = true;
 
 }
 
 // Called when the game starts or when spawned
-void AEnemyProjectile::BeginPlay()
-{
-	Super::BeginPlay();
-	EnsureComponents();
+void AEnemyProjectile::BeginPlay() {
+    Super::BeginPlay();
+    EnsureComponents();
 }
 
 // Called every frame
-void AEnemyProjectile::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
+void AEnemyProjectile::Tick(float DeltaTime) {
+    Super::Tick(DeltaTime);
 
 }
 

@@ -7,20 +7,20 @@
 #include "PlayerProjectile.generated.h"
 
 UCLASS()
-class FPSDEMO_API APlayerProjectile : public AActor
-{
-	GENERATED_BODY()
-	
-public:	
-	// Sets default values for this actor's properties
-	APlayerProjectile();
+
+class FPSDEMO_API APlayerProjectile : public AActor {
+    GENERATED_BODY()
+
+public:
+    // Sets default values for this actor's properties
+    APlayerProjectile();
 
 protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+    // Called when the game starts or when spawned
+    virtual void BeginPlay() override;
 
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+public:
+    // Called every frame
+    virtual void Tick(float DeltaTime) override;
 
 };

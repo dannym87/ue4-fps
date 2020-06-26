@@ -71,12 +71,12 @@ void AEnemyCharacter::Die() {
 }
 
 void AEnemyCharacter::MoveToPlayerCharacterLocation() {
-    AEnemyAiController* AIController = Cast<AEnemyAiController>(GetController());
+    AEnemyAiController *AIController = Cast<AEnemyAiController>(GetController());
     if (!AIController) {
         return;
     }
 
-    ACharacter* PlayerCharacter = UGameplayStatics::GetPlayerCharacter(GetWorld(), 0);
+    ACharacter *PlayerCharacter = UGameplayStatics::GetPlayerCharacter(GetWorld(), 0);
     if (!PlayerCharacter) {
         return;
     }

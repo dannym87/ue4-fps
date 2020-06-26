@@ -6,24 +6,21 @@
 #include "Kismet/GameplayStatics.h"
 
 // Sets default values
-AWeapon::AWeapon()
-{
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+AWeapon::AWeapon() {
+    // Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+    PrimaryActorTick.bCanEverTick = true;
 
 }
 
 // Called when the game starts or when spawned
-void AWeapon::BeginPlay()
-{
-	Super::BeginPlay();
-	EnsureComponents();
+void AWeapon::BeginPlay() {
+    Super::BeginPlay();
+    EnsureComponents();
 }
 
 // Called every frame
-void AWeapon::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
+void AWeapon::Tick(float DeltaTime) {
+    Super::Tick(DeltaTime);
 
 }
 
@@ -53,7 +50,8 @@ void AWeapon::Fire() {
     FTransform MuzzleTransform = WeaponMesh->GetSocketTransform(MuzzleSocketName);
 
     GetWorld()->SpawnActor<AEnemyProjectile>(ProjectileBlueprint, MuzzleTransform);
-    UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), MuzzleFlash, MuzzleLocation, MuzzleRotation, FVector(.1f, .1f, .1f));
+    UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), MuzzleFlash, MuzzleLocation, MuzzleRotation,
+                                             FVector(.1f, .1f, .1f));
     UGameplayStatics::PlaySoundAtLocation(GetWorld(), ShootingSound, MuzzleLocation, .1f);
 }
 

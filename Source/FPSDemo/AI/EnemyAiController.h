@@ -13,28 +13,30 @@
  * 
  */
 UCLASS()
-class FPSDEMO_API AEnemyAiController : public AAIController
-{
-	GENERATED_BODY()
+
+class FPSDEMO_API AEnemyAiController : public AAIController {
+    GENERATED_BODY()
 protected:
     void BeginPlay() override;
 
-    UPROPERTY(EditDefaultsOnly, Category="Blackboard")
-    UBlackboardData* BlackboardToUse;
+    UPROPERTY(EditDefaultsOnly, Category = "Blackboard")
+    UBlackboardData *BlackboardToUse;
 
-	UPROPERTY(EditDefaultsOnly, Category="Blackboard")
-    UBehaviorTree* BehaviourTree;
+    UPROPERTY(EditDefaultsOnly, Category = "Blackboard")
+    UBehaviorTree *BehaviourTree;
 
-	UPROPERTY()
-	UBlackboardComponent* BB;
+    UPROPERTY()
+    UBlackboardComponent *BB;
 
-	UPROPERTY(VisibleAnywhere, Category="AI")
-    UAIPerceptionComponent* AIPerceptionComponent;
+    UPROPERTY(VisibleAnywhere, Category = "AI")
+    UAIPerceptionComponent *AIPerceptionComponent;
 
 private:
     UFUNCTION()
+
     void EnsureAiComponents();
 
     UFUNCTION()
-    void AIStimilusTrigger(AActor* Actor, FAIStimulus Stimulus);
+
+    void AIStimilusTrigger(AActor *Actor, FAIStimulus Stimulus);
 };

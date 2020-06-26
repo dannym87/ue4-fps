@@ -11,6 +11,7 @@
 #include "EnemyCharacter.generated.h"
 
 UCLASS()
+
 class FPSDEMO_API AEnemyCharacter : public ACharacter {
     GENERATED_BODY()
 
@@ -23,7 +24,7 @@ protected:
     float Health = 1.0f;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Default")
-    USoundWave* DyingSound;
+    USoundWave *DyingSound;
 
     UPROPERTY(BlueprintReadWrite, Category = "Default")
     bool IsShooting = false;
@@ -32,7 +33,7 @@ protected:
     bool IsDead = false;
 
     UPROPERTY(BlueprintReadWrite, Category = "Default")
-    AWeapon* AIEquippedWeapon;
+    AWeapon *AIEquippedWeapon;
 
     UPROPERTY(VisibleAnywhere, Category = "Collision")
     UCapsuleComponent *Capsule;
