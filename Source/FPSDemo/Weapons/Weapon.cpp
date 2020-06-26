@@ -43,7 +43,7 @@ void AWeapon::EnsureComponents() {
     }
 
     if (!ensure(ProjectileBlueprint)) {
-        return;w
+        return;
     }
 }
 
