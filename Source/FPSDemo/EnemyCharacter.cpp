@@ -67,6 +67,7 @@ void AEnemyCharacter::Die() {
     SkeletalMesh->SetSimulatePhysics(true);
     UGameplayStatics::PlaySoundAtLocation(GetWorld(), DyingSound, GetActorLocation(), GetActorRotation(), .2f);
     IsDead = true;
+    AIEquippedWeapon->SetIsParentDead(true);
 }
 
 void AEnemyCharacter::MoveToPlayerCharacterLocation() {

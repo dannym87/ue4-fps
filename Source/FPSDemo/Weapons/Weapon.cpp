@@ -58,3 +58,7 @@ void AWeapon::Fire() {
     UGameplayStatics::PlaySoundAtLocation(GetWorld(), ShootingSound, MuzzleLocation, .1f);
 }
 
+void AWeapon::SetIsParentDead(bool IsDead) {
+    IsParentDead = IsDead;
+}
+

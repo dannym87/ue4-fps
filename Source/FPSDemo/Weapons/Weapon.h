@@ -52,6 +52,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void Fire();
 
+	// Sets the parent to flag as dead
+	void SetIsParentDead(bool IsDead);
+
 private:
 	// Ensure Components are set
 	void EnsureComponents();
