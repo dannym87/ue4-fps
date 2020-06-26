@@ -63,4 +63,5 @@ private:
 
     // Moves the Enemy Player to the Player Character location
     void MoveToPlayerCharacterLocation();
+
 };

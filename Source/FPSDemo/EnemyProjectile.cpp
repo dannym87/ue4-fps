@@ -16,7 +16,6 @@ void AEnemyProjectile::BeginPlay()
 {
 	Super::BeginPlay();
 	EnsureComponents();
-	UE_LOG(LogTemp, Warning, TEXT("spawning enemy projectile"));
 }
 
 // Called every frame
@@ -29,13 +28,12 @@ void AEnemyProjectile::Tick(float DeltaTime)
 // Ensure components exist on Actor
 void AEnemyProjectile::EnsureComponents() {
     ProjectileMovementComponent = FindComponentByClass<UProjectileMovementComponent>();
-    if (!ProjectileMovementComponent) {
+    if (!ensure(ProjectileMovementComponent)) {
         return;
     }
 
     CapsuleComponent = FindComponentByClass<UCapsuleComponent>();
-    if (!CapsuleComponent) {
+    if (!ensure(CapsuleComponent)) {
         return;
     }
 }
-
