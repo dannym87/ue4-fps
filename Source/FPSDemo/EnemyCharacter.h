@@ -51,9 +51,6 @@ protected:
     UPROPERTY()
     bool IsReloading = false;
 
-    // Called when the game starts or when spawned
-    virtual void BeginPlay() override;
-
     UFUNCTION(BlueprintCallable)
     void StartFiringWeapon();
 
@@ -62,6 +59,12 @@ protected:
 
     UFUNCTION()
     void OnHit(AActor *Actor, AActor *Other, FVector NormalImpulse, const FHitResult &Hit);
+
+    // Called when the game starts or when spawned
+    virtual void BeginPlay() override;
+
+    // Called when actor takes damage
+    virtual float TakeDamage(float Damage, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
 
 public:
     // Called every frame

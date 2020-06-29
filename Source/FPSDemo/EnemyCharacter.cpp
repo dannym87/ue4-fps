@@ -63,6 +63,18 @@ void AEnemyCharacter::OnHit(AActor *Actor, AActor *Other, FVector NormalImpulse,
     }
 }
 
+float AEnemyCharacter::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) {
+    if (DamageEvent.IsOfType(FRadialDamageEvent::ClassID)) {
+        Health -= Damage;
+
+        if (Health <= 0) {
+            Die();
+        }
+    }
+
+    return Super::TakeDamage(Damage, DamageEvent, EventInstigator, DamageCauser);
+}
+
 void AEnemyCharacter::Die() {
     Capsule->DestroyComponent();
     SkeletalMesh->SetSimulatePhysics(true);
