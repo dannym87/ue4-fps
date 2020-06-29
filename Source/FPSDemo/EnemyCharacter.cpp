@@ -54,7 +54,7 @@ void AEnemyCharacter::OnHit(AActor *Actor, AActor *Other, FVector NormalImpulse,
         return;
     }
 
-    Health -= .2f;
+    Health -= .25f;
 
     if (Health <= 0) {
         Die();
