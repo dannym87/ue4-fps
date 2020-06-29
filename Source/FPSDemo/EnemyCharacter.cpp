@@ -17,7 +17,6 @@ AEnemyCharacter::AEnemyCharacter() {
 void AEnemyCharacter::BeginPlay() {
     Super::BeginPlay();
     EnsureComponents();
-    OnActorHit.AddDynamic(this, &AEnemyCharacter::OnHit);
 }
 
 // Called every frame
@@ -48,28 +47,9 @@ void AEnemyCharacter::EnsureComponents() {
     }
 }
 
-void AEnemyCharacter::OnHit(AActor *Actor, AActor *Other, FVector NormalImpulse, const FHitResult &Hit) {
-    auto *Projectile = Cast<APlayerProjectile>(Other);
-    if (!Projectile || IsDead) {
-        return;
-    }
-
-    Health -= .25f;
-
-    if (Health <= 0) {
-        Die();
-    } else {
-        MoveToPlayerCharacterLocation();
-    }
-}
-
 float AEnemyCharacter::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) {
-    if (DamageEvent.IsOfType(FRadialDamageEvent::ClassID)) {
-        Health -= Damage;
-
-        if (Health <= 0) {
-            Die();
-        }
+    if (!IsDead && (Health -= Damage) <= 0) {
+        Die();
     }
 
     return Super::TakeDamage(Damage, DamageEvent, EventInstigator, DamageCauser);

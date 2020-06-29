@@ -36,7 +36,7 @@ protected:
     UPROPERTY(BlueprintReadWrite, Category = "Default")
     bool IsShooting = false;
 
-    UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Default")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Default")
     bool IsDead = false;
 
     UPROPERTY(BlueprintReadWrite, Category = "Default")
@@ -56,9 +56,6 @@ protected:
 
     UFUNCTION(BlueprintCallable)
     void StopFiringWeapon();
-
-    UFUNCTION()
-    void OnHit(AActor *Actor, AActor *Other, FVector NormalImpulse, const FHitResult &Hit);
 
     // Called when the game starts or when spawned
     virtual void BeginPlay() override;
