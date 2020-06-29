@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "EnemyCharacter.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "PlayerProjectile.h"
 #include "PlayerCharacter.h"
@@ -82,4 +83,41 @@ void AEnemyCharacter::MoveToPlayerCharacterLocation() {
     }
 
     AIController->MoveToLocation(PlayerCharacter->GetActorLocation());
+}
+
+void AEnemyCharacter::StartFiringWeapon() {
+    IsShooting = true;
+    FireWeapon();
+}
+
+void AEnemyCharacter::StopFiringWeapon() {
+    IsShooting = false;
+}
+
+void AEnemyCharacter::FireWeapon() {
+    if (!IsShooting || IsDead || IsReloading) {
+        return;
+    }
+
+    FTimerHandle FireDelay;
+    int32 Ammo = AIEquippedWeapon->Fire();
+
+    if (Ammo <= 0) {
+        IsReloading = true;
+        AIEquippedWeapon->Reload();
+        // todo: Make this more intelligent and find cover
+        GetCharacterMovement()->MaxWalkSpeed = 0.f;
+        GetMesh()->PlayAnimation(ReloadAnimation, false);
+        UGameplayStatics::PlaySoundAtLocation(GetWorld(), ReloadSound, GetActorLocation(), GetActorRotation(), .2f);
+        GetWorldTimerManager().SetTimer(FireDelay, this, &AEnemyCharacter::ReloadComplete, 2.3f);
+        return;
+    }
+
+    GetWorldTimerManager().SetTimer(FireDelay, this, &AEnemyCharacter::FireWeapon, AIEquippedWeapon->GetFireRate());
+}
+
+void AEnemyCharacter::ReloadComplete() {
+    IsReloading = false;
+    GetCharacterMovement()->MaxWalkSpeed = 500.f;
+    FireWeapon();
 }

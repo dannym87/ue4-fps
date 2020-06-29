@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Animation/AnimSequence.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "GameFramework/Character.h"
@@ -26,10 +27,16 @@ protected:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Default")
     USoundWave *DyingSound;
 
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Default")
+    USoundWave *ReloadSound;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Default")
+    UAnimSequence *ReloadAnimation;
+
     UPROPERTY(BlueprintReadWrite, Category = "Default")
     bool IsShooting = false;
 
-    UPROPERTY(BlueprintReadWrite, Category = "Default")
+    UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Default")
     bool IsDead = false;
 
     UPROPERTY(BlueprintReadWrite, Category = "Default")
@@ -41,11 +48,19 @@ protected:
     UPROPERTY(VisibleAnywhere, Category = "Rendering")
     USkeletalMeshComponent *SkeletalMesh;
 
+    UPROPERTY()
+    bool IsReloading = false;
+
     // Called when the game starts or when spawned
     virtual void BeginPlay() override;
 
-    UFUNCTION()
+    UFUNCTION(BlueprintCallable)
+    void StartFiringWeapon();
 
+    UFUNCTION(BlueprintCallable)
+    void StopFiringWeapon();
+
+    UFUNCTION()
     void OnHit(AActor *Actor, AActor *Other, FVector NormalImpulse, const FHitResult &Hit);
 
 public:
@@ -65,4 +80,9 @@ private:
     // Moves the Enemy Player to the Player Character location
     void MoveToPlayerCharacterLocation();
 
+    // Fire Weapon
+    void FireWeapon();
+
+    // Reloading finished callback
+    void ReloadComplete();
 };

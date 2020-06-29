@@ -31,8 +31,16 @@ protected:
     TSubclassOf<AEnemyProjectile> ProjectileBlueprint;
 
     // Delay between firing projectiles
-    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Default")
     float FireRate = .1f;
+
+    // Maximum projectiles held in clip
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Default")
+    int32 ClipSize = 25;
+
+    // Number of projectiles inside clip
+    UPROPERTY()
+    int32 Ammo = ClipSize;
 
     // Tracks whether parent holding the weapon is dead
     UPROPERTY(BlueprintReadWrite, Category = "Default")
@@ -48,13 +56,17 @@ public:
     // Called every frame
     virtual void Tick(float DeltaTime) override;
 
-    // Fire weapon
-    UFUNCTION(BlueprintCallable)
-
-    void Fire();
-
     // Sets the parent to flag as dead
     void SetIsParentDead(bool IsDead);
+
+    // Reload
+    void Reload() { Ammo = ClipSize; };
+
+    // Get fire rate
+    float GetFireRate() { return FireRate; };
+
+    // Fire weapon
+    int32 Fire();
 
 private:
     // Ensure Components are set

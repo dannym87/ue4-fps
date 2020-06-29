@@ -43,7 +43,7 @@ void AWeapon::EnsureComponents() {
     }
 }
 
-void AWeapon::Fire() {
+int32 AWeapon::Fire() {
     FName MuzzleSocketName = FName("Muzzle");
     FVector MuzzleLocation = WeaponMesh->GetSocketLocation(MuzzleSocketName);
     FRotator MuzzleRotation = WeaponMesh->GetSocketRotation(MuzzleSocketName);
@@ -53,6 +53,8 @@ void AWeapon::Fire() {
     UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), MuzzleFlash, MuzzleLocation, MuzzleRotation,
                                              FVector(.1f, .1f, .1f));
     UGameplayStatics::PlaySoundAtLocation(GetWorld(), ShootingSound, MuzzleLocation, .1f);
+
+    return Ammo -= 1;
 }
 
 void AWeapon::SetIsParentDead(bool IsDead) {
